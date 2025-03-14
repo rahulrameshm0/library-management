@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #8360c3, #2ebf91);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+form {
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    max-width: 90%;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #2ebf91;
+    outline: none;
+    box-shadow: 0 0 8px rgba(46, 191, 145, 0.3);
+}
+
+button {
+    background: #2ebf91;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background: #28a87d;
+}
+
+/* Adjusting Links */
+a {
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #2ebf91;
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #1d7a5e;
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <form action="" method="POST">
+        <h1>Signup</h1>
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="password" name="password" id="password" required placeholder="Password">
+        <button type="submit">Sign up</button>
+    </form>    
+</body>
+</html>

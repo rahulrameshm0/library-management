@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <style>
+        /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+th {
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    table {
+        width: 95%;
+    }
+    th, td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+   <h1>Available Books</h1>
+   
+   {% if user.is_authenticated %}
+    <table border="1">
+        <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+        </tr>
+        {% for book in books %} 
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+   {% else %}
+      <p>Please log in to view the book list.</p>
+   {% endif %}
+
+</body>
+</html>
