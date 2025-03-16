@@ -1,0 +1,77 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Welcome Admin</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h1>Add Book</h1>
+        <input type="text" name="title" id="title" placeholder="Book Name" required>
+        <input type="text" name="author" id="autor" placeholder="Author Name" required>
+        <input type="text" name="availabe_copy" id="availabe_copy" placeholder="Availabe copy" required>
+        <button type="submit">Add Book</button>
+    </form>
+        {% for book in books %}
+            <table border="1">
+                <tr>
+                    <th>Book Name</th>
+                    <th>Author Name</th>
+                    <th>Available Copies</th>
+                </tr>
+
+                <tr>
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.availabe_copy}}</td>
+                    <td></td>
+                </tr>
+        
+            </table>
+        {% endfor %}
+    </ul>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Welcome Admin</h1>
+
+    <!-- ✅ Book Addition Form -->
+    <form action="add-book" method="POST"> 
+        {% csrf_token %}
+        <h2>Add Book</h2>
+        <input type="text" name="title" id="title" placeholder="Book Name" required>
+        <input type="text" name="author" id="author" placeholder="Author Name" required>
+        <input type="number" name="available_copy" id="available_copy" placeholder="Available Copies" required>
+        <button type="submit">Add Book</button>
+    </form>
+
+    <!-- ✅ Book List Table -->
+    <h2>Book List</h2>
+    <table border="1">
+        <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Available Copies</th>
+        </tr>
+
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.available_copy }}</td>  <!-- Ensure this matches the model -->
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
