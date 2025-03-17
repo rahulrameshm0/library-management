@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+</head>
+<body>
+    <h1>Update Book</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" id="title" placeholder="Title" required>
+        <input type="text" name="author" id="author" placeholder="Author" required>
+        <input type="number" name="availabe_copy" id="availabe_copy" placeholder="Available Copy" required>
+        <button type="submit">Update book</button>
+    </form>
+</body>
+</html>

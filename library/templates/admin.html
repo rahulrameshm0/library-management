@@ -56,6 +56,16 @@
         <button type="submit">Add Book</button>
     </form>
 
+    <h1>Add User</h1>
+
+    <form action="{% url 'add_user' %}" method="POST">
+        {% csrf_token %}
+            <input type="text" name="username" id="name" placeholder="Name" required>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <button type="submit">Add User</button>
+       </form>
+
     <!-- ✅ Book List Table -->
     <h2>Book List</h2>
     <table border="1">
@@ -63,13 +73,39 @@
             <th>Book Name</th>
             <th>Author Name</th>
             <th>Available Copies</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
 
         {% for book in books %}
         <tr>
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
-            <td>{{ book.available_copy }}</td>  <!-- Ensure this matches the model -->
+            <td>{{ book.available_copy }}</td>
+            <td><a href="{% url 'update_user' user.id %}">Update</a></td>
+            <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>User List</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            {% if user.id %}
+                <td><a href="{% url 'update_user' user.id %}">Update</a></td>
+                <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
+            {% endif %}
+            <!-- <td>{{ user.password }}</td>  -->
         </tr>
         {% endfor %}
     </table>
