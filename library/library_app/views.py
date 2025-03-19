@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from . models import Book,Admin
@@ -128,11 +129,6 @@ def add_user(request):
     
     return redirect("admin_dashboard")
 
-def delete_book(request, book_id):
-    book_obj = get_object_or_404(Book, id=book_id)
-    book_obj.delete()
-    messages.success(request, "Book has been successfully deleted!")
-    return redirect("admin_dashboard")
 
 def delete_user(request, user_id):
     user_obj = get_object_or_404(User, id=user_id)
@@ -162,6 +158,12 @@ def update_user(request, user_id):
 
     return render(request, "update_user.html", {"user": user_obj})
 
+def delete_book(request, book_id):
+    book_obj = get_object_or_404(Book, id=book_id)
+    book_obj.delete()
+    messages.success(request, "Book has been successfully deleted!")
+    return redirect("admin_dashboard")
+
 def update_book(request, book_id):
     book_obj = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
@@ -173,6 +175,10 @@ def update_book(request, book_id):
             messages.error(request, "All fields are required!")
             return redirect('admin_dashboard')
         
+        if Book.objects.filter(title=title).exclude(id=book_id).exists():
+            messages.error(request, "This book already exists")
+            return redirect('admin_dashboard')
+        
         book_obj.title = title
         book_obj.author = author
         book_obj.available_copy = available_copy
@@ -180,10 +186,10 @@ def update_book(request, book_id):
         messages.success(request, "Book has been sucessfully updated")
         return redirect('admin_dashboard')
     
-    return render(request, "admin.html")
+    return render(request, "update_book.html", {"book": book_obj})
 
 
-def sign_out(request):
+def sign_out(request):  
     pass
 
 def delete_account():

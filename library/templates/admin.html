@@ -42,12 +42,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    
+        body {
+            background-color: #f5f5f5;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+    
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+    
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            color: #34495e;
+        }
+    
+        /* Forms */
+        form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+    
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0 1.5rem 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+    
+        button[type="submit"] {
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+    
+        button[type="submit"]:hover {
+            background: #2980b9;
+        }
+    
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+    
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+    
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+    
+        /* Action Links */
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+    
+        a.update {
+            background-color: #27ae60;
+            color: white;
+        }
+    
+        a.delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+    
+        a:hover {
+            opacity: 0.9;
+        }
+    
+        /* Status Indicators */
+        span[style*="red"] {
+            color: #e74c3c !important;
+            font-weight: 600;
+        }
+    
+        span[style*="green"] {
+            color: #27ae60 !important;
+            font-weight: 600;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+    
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+    
+            form {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome Admin</h1>
 
     <!-- ✅ Book Addition Form -->
-    <form action="add-book" method="POST"> 
+    <form action="{% url 'add_book' %}" method="POST"> 
         {% csrf_token %}
         <h2>Add Book</h2>
         <input type="text" name="title" id="title" placeholder="Book Name" required>
@@ -82,8 +235,10 @@
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.available_copy }}</td>
-            <td><a href="{% url 'update_user' user.id %}">Update</a></td>
-            <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
+            {% if book.id %}
+                <td><a href="{% url 'update_book' book.id %}">Update</a></td>
+                <td><a href="{% url 'delete_book' book.id %}">Delete</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
@@ -93,6 +248,7 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>Privilage</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -101,6 +257,13 @@
         <tr>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
+            <td>
+                {% if user.is_superuser %}
+                    <span style="color: red;">Admin</span>
+                {% else %}
+                    <span style="color: green;">User</span>
+                {% endif %}
+            </td>
             {% if user.id %}
                 <td><a href="{% url 'update_user' user.id %}">Update</a></td>
                 <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>

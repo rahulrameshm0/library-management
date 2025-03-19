@@ -4,15 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Book</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    
+        body {
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .container {
+            position: relative;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+    
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+    
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    
+        .form-group {
+            margin-bottom: 1rem;
+        }
+    
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+    
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+    
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        @media (max-width: 480px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+    
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+        .alert {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        position: relative;
+    }
+
+    .alert-success {
+        background: #e6f4ea;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+    }
+
+    .alert-error {
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+    }
+
+    .alert-warning {
+        background: #fff3cd;
+        color: #664d03;
+        border: 1px solid #ffecb5;
+    }
+
+    .alert-info {
+        background: #cff4fc;
+        color: #055160;
+        border: 1px solid #b6effb;
+    }
+
+    .alert .close-btn {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        padding: 0 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    .alert .close-btn:hover {
+        opacity: 0.8;
+    }
+    </style>
 </head>
 <body>
-    <h1>Update Book</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="title" id="title" placeholder="Title" required>
-        <input type="text" name="author" id="author" placeholder="Author" required>
-        <input type="number" name="availabe_copy" id="availabe_copy" placeholder="Available Copy" required>
-        <button type="submit">Update book</button>
-    </form>
+    <div class="container">
+        <form action="" method="POST">
+            <h1>Update Book</h1>
+            {% csrf_token %}
+            <input type="text" name="title" id="title" placeholder="Title" required>
+            <input type="text" name="author" id="author" placeholder="Author" required>
+            <input type="number" name="available_copy" id="availabe_copy" placeholder="Available Copy" required>
+            <button type="submit">Update book</button>
+        </form>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {% if message.tags == 'success' %}✓
+            {% elif message.tags == 'error' %}⚠
+            {% elif message.tags == 'warning' %}⚠
+            {% else %}ⓘ{% endif %}
+            {{ message }}
+            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
 </body>
 </html>

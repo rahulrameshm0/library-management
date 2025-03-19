@@ -6,102 +6,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* General Styles */
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #8360c3, #2ebf91);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+    
+        body {
+            position: relative;
+            background: linear-gradient(120deg, #7f7fd5, #86a8e7, #91eae4);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+    
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+    
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+    
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+    
+        input:focus {
+            outline: none;
+            border-color: #7f7fd5;
+            box-shadow: 0 0 0 3px rgba(127, 127, 213, 0.2);
+        }
+    
+        button {
+            background: #7f7fd5;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+    
+        button:hover {
+            background: #6c6cbd;
+            transform: translateY(-2px);
+        }
+    
+        a {
+            color: #7f7fd5;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+    
+        a:hover {
+            color: #6c6cbd;
+            text-decoration: underline;
+        }
+    
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+        .alert {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        position: relative;
+    }
 
-/* Login Container */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-}
+    .alert-success {
+        background: #e6f4ea;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+    }
 
-form {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-}
+    .alert-error {
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+    }
 
-h1 {
-    text-align: center;
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
+    .alert-warning {
+        background: #fff3cd;
+        color: #664d03;
+        border: 1px solid #ffecb5;
+    }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s;
-}
+    .alert-info {
+        background: #cff4fc;
+        color: #055160;
+        border: 1px solid #b6effb;
+    }
 
-input:focus {
-    border-color: #2ebf91;
-    outline: none;
-    box-shadow: 0 0 8px rgba(46, 191, 145, 0.3);
-}
+    .alert .close-btn {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        padding: 0 0.5rem;
+        font-size: 1.2rem;
+    }
 
-button {
-    background: #2ebf91;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #28a87d;
-}
-
-/* Adjusting "Sign up" link */
-a {
-    text-align: center;
-    display: block;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #2ebf91;
-    font-size: 14px;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-a:hover {
-    color: #1d7a5e;
-    text-decoration: underline;
-}
+    .alert .close-btn:hover {
+        opacity: 0.8;
+    }
     </style>
 </head>
 <body>
-    <form action="" method="POST">
-       <h1>login</h1>
-    {% csrf_token %}
-    <input type="text" name="username" id="username" placeholder="Username" required>
-    <input type="password" name="password" id="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-    <a href="signup">Sign up</a>
-</form>
+    <div class="container">
+        <form action="" method="POST">
+            <h1>login</h1>
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <a href="signup">Sign up</a>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {% if message.tags == 'success' %}✓
+        {% elif message.tags == 'error' %}⚠
+        {% elif message.tags == 'warning' %}⚠
+        {% else %}ⓘ{% endif %}
+        {{ message }}
+        <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    </div>
 </body>
 </html>
