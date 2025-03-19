@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from . models import Book,Admin
 
@@ -52,14 +54,22 @@ def admin_login(request):
         user = authenticate(request, username=username,password=password)
 
         if user is not None:
-            login(request, user)
-            messages.success(request, "Login successfull!")
-            return redirect("admin_dashboard")
+            if user.is_staff:
+                login(request, user)
+                messages.success(request, "Login successfull!")
+                return redirect("admin_dashboard")
+            else:
+                messages.error(request, "Only admin can login!")
+                return redirect("admin_login")
         else:
             messages.error(request, "user or password is incorrect!")
 
     return render(request, "admin-login.html")
 
+def is_admin(user):
+    return user.is_authenticated and user.is_staff
+
+User  = get_user_model()
 def admin_signup(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -74,22 +84,30 @@ def admin_signup(request):
             messages.error(request, "This username already exists!!")
             return redirect('admin_signup')
         
-        users = User.objects.create_user(email=email,username=username,password=password)
-        users.save()
+        admin_user = User.objects.create_user(email=email,username=username)
+        admin_user.set_password(password)
+        admin_user.is_staff = True 
+        admin_user.is_superuser = True
+        admin_user.save()
         messages.success(request, "Signup successful!")
         return redirect('admin_login')
     return render(request, "admin-signup.html")
+
+
 
 def book_list(request):
     books = Book.objects.all()
     return render(request, "library.html", {"books": books})
 
+@login_required
+@user_passes_test(is_admin)
 def admin_dashboard(request):
     admin_user = Admin.objects.all()
     books = Book.objects.all()
     users = User.objects.all() 
 
     return render(request, 'admin.html', {'admin_user': admin_user, 'books': books, 'users': users})
+
 def add_book(request):
     if request.method == "POST":
         title = request.POST.get("title")
