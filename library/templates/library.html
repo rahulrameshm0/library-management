@@ -4,170 +4,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <style>
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    
-        body {
-            background: #f8f9fa;
-            color: #2d3436;
-            line-height: 1.6;
-            padding: 2rem;
-            min-height: 100vh;
-        }
-    
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-    
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            font-size: 2.8rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid #3498db;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-    
-        /* Table Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
-            box-shadow: 0 1px 15px rgba(0,0,0,0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-in;
-        }
-    
-        th, td {
-            padding: 1.2rem;
-            text-align: left;
-        }
-    
-        th {
-            background-color: #3498db;
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-    
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-    
-        tr:hover {
-            background-color: #f1f2f6;
-            transform: scale(1.02);
-            transition: all 0.2s ease;
-        }
-    
-        td {
-            border-bottom: 1px solid #ecf0f1;
-        }
-    
-        /* Login Message & Link */
-        p {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #e74c3c;
-            margin: 2rem 0;
-            padding: 1rem;
-            background: #ffeaea;
-            border-radius: 8px;
-        }
-    
-        a {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            float: right;
-            box-shadow: 0 4px 15px rgba(52,152,219,0.3);
-        }
-    
-        a:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52,152,219,0.4);
-        }
-    
-        a:active {
-            transform: translateY(0);
-        }
-    
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-    
-            h1 {
-                font-size: 2rem;
-            }
-    
-            th, td {
-                padding: 0.8rem;
-                font-size: 0.9rem;
-            }
-    
-            a {
-                width: 100%;
-                text-align: center;
-                float: none;
-            }
-        }
-    </style>
+   <style>
+/* Modern Minimalist CSS */
+:root {
+  --primary: #2563eb;      /* Modern blue */
+  --secondary: #3b82f6;    /* Lighter blue */
+  --text: #1e293b;         /* Dark slate */
+  --background: #f8fafc;    /* Lightest slate */
+  --surface: #ffffff;       /* Pure white */
+  --success: #22c55e;       /* Fresh green */
+  --border: #e2e8f0;        /* Subtle border */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Style */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  position: relative;
+  color: var(--primary);
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--secondary);
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+/* Table Design */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  margin: 2rem 0;
+}
+
+th, td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+tr:not(:last-child) td {
+  border-bottom: 1px solid var(--border);
+}
+
+tr:hover td {
+  background: #f1f5f9;
+}
+
+/* Button Design */
+button.purchase {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button.purchase:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
+/* Login Message */
+p {
+  text-align: center;
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: 0.75rem;
+  margin: 2rem auto;
+  max-width: 500px;
+  border: 1px solid var(--border);
+  color: #64748b;
+}
+
+p::before {
+  content: "📚";
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    box-shadow: none;
+    border: 1px solid var(--border);
+  }
+
+  th, td {
+    padding: 0.75rem;
+  }
+}
+
+table {
+  animation: slideIn 0.4s ease-out;
+}
+/* Basic styling for the logout link */
+.logout-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4b5c; /* Red background color */
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-family: Arial, sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-link:hover {
+    background-color: #e43a4b;
+}
+
+.logout-link:active {
+    background-color: #c9303c; 
+}
+   </style>
 </head>
 <body>
-   <h1>Available Books</h1>
-   
-   {% if user.is_authenticated %}
-    <table border="1">
-        <tr>
-            <th>Book Name</th>
-            <th>Author Name</th>
-            <th>Copies</th>
-        </tr>
-        {% for book in books %} 
-        <tr>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.available_copy }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-   {% else %}
-      <p>Please log in to view the book list.</p>
-   {% endif %}
+    <div class="container">
+        <h1>Available Books</h1>
+        
+        {% if user.is_authenticated %}
+         <table border="1">
+             <tr>
+                 <th>Book Name</th>
+                 <th>Author Name</th>
+                 <th>Copies</th>
+                 <th>Borrow Book</th>
+             </tr>
+             {% for book in books %} 
+             <tr>
+                 <td>{{ book.title }}</td>
+                 <td>{{ book.author }}</td>
+                 <td>{{ book.available_copy }}</td>
+                 <td>
+                     <form action="{% url 'purchase_book' book.id %}" method="POST">
+                         {% csrf_token %}
+                         <button type="submit" class="purchase" href="{% url 'purchase_book' book.id %}">Purchase</button>
+                     </form>
+                 </td>
+             </tr>
+             {% endfor %}
+         </table>
+         {% else %}
+             <p>Please log in to view the book list.</p>
+         {% endif %}
+         
+        <a href="{% url 'login' %}" class="logout-link">Log out</a>
 
-   <a href="admin_login">Admin Login &rarr;</a>
+    </div>
 </body>
 </html>

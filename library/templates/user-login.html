@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
     <style>
         * {
             margin: 0;
@@ -12,7 +13,7 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
-    
+
         body {
             position: relative;
             background: linear-gradient(120deg, #7f7fd5, #86a8e7, #91eae4);
@@ -21,7 +22,29 @@
             justify-content: center;
             align-items: center;
         }
-    
+
+        .admin-login {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .admin-login a {
+            background: #ffffff;
+            color: #7f7fd5;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-login a:hover {
+            background: #7f7fd5;
+            color: white;
+        }
+
         .container {
             background: rgba(255, 255, 255, 0.95);
             padding: 2rem 3rem;
@@ -31,7 +54,7 @@
             max-width: 400px;
             backdrop-filter: blur(10px);
         }
-    
+
         h1 {
             color: #2c3e50;
             margin-bottom: 2rem;
@@ -39,13 +62,13 @@
             font-size: 2rem;
             font-weight: 600;
         }
-    
+
         form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-    
+
         input {
             width: 100%;
             padding: 1rem;
@@ -54,13 +77,13 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
-    
+
         input:focus {
             outline: none;
             border-color: #7f7fd5;
             box-shadow: 0 0 0 3px rgba(127, 127, 213, 0.2);
         }
-    
+
         button {
             background: #7f7fd5;
             color: white;
@@ -73,12 +96,12 @@
             transition: all 0.3s ease;
             margin-top: 1rem;
         }
-    
+
         button:hover {
             background: #6c6cbd;
             transform: translateY(-2px);
         }
-    
+
         a {
             color: #7f7fd5;
             text-decoration: none;
@@ -88,72 +111,87 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-    
+
         a:hover {
             color: #6c6cbd;
             text-decoration: underline;
         }
-    
+
         @media (max-width: 480px) {
             .container {
                 padding: 1.5rem;
             }
-            
+
             h1 {
                 font-size: 1.75rem;
             }
+
+            .admin-login {
+                top: 10px;
+                right: 10px;
+            }
+
+            .admin-login a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
         }
+
         .alert {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        font-size: 0.9rem;
-        position: relative;
-    }
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            position: relative;
+        }
 
-    .alert-success {
-        background: #e6f4ea;
-        color: #0f5132;
-        border: 1px solid #badbcc;
-    }
+        .alert-success {
+            background: #e6f4ea;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
 
-    .alert-error {
-        background: #f8d7da;
-        color: #842029;
-        border: 1px solid #f5c2c7;
-    }
+        .alert-error {
+            background: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
 
-    .alert-warning {
-        background: #fff3cd;
-        color: #664d03;
-        border: 1px solid #ffecb5;
-    }
+        .alert-warning {
+            background: #fff3cd;
+            color: #664d03;
+            border: 1px solid #ffecb5;
+        }
 
-    .alert-info {
-        background: #cff4fc;
-        color: #055160;
-        border: 1px solid #b6effb;
-    }
+        .alert-info {
+            background: #cff4fc;
+            color: #055160;
+            border: 1px solid #b6effb;
+        }
 
-    .alert .close-btn {
-        margin-left: auto;
-        background: none;
-        border: none;
-        color: inherit;
-        cursor: pointer;
-        padding: 0 0.5rem;
-        font-size: 1.2rem;
-    }
+        .alert .close-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            padding: 0 0.5rem;
+            font-size: 1.2rem;
+        }
 
-    .alert .close-btn:hover {
-        opacity: 0.8;
-    }
+        .alert .close-btn:hover {
+            opacity: 0.8;
+        }
     </style>
+ 
 </head>
 <body>
+    <div class="admin-login">
+        <a href="admin_login">Admin Login &rarr;</a>
+    </div>
     <div class="container">
         <form action="" method="POST">
             <h1>login</h1>
@@ -162,6 +200,7 @@
         <input type="password" name="password" id="password" placeholder="Password" required>
         <button type="submit">Login</button>
         <a href="signup">Sign up</a>
+        <!-- <a href="admin_login">Admin Login &rarr;</a> -->
     </form>
     {% if messages %}
     {% for message in messages %}

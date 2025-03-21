@@ -59,3 +59,11 @@ class Admin(models.Model):
         user.delete()
 
 
+class Transaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    copies_taken = models.IntegerField(default=1)
+    date_borrowed = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} borrwed {self.book.title}"

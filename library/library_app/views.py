@@ -4,11 +4,13 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
-from . models import Book,Admin
-
+from . models import Book,Admin, Transaction
+print(Transaction.objects.all())
 from django.contrib.auth import login,logout, authenticate
 
+
 # Create your views here.
+@login_required
 def user_login(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -99,14 +101,15 @@ def book_list(request):
     books = Book.objects.all()
     return render(request, "library.html", {"books": books})
 
-@login_required
 @user_passes_test(is_admin)
+@login_required
 def admin_dashboard(request):
     admin_user = Admin.objects.all()
-    books = Book.objects.all()
-    users = User.objects.all() 
+    users = User.objects.all()
+    books = Book.objects.all() 
+    transactions = Transaction.objects.all()
 
-    return render(request, 'admin.html', {'admin_user': admin_user, 'books': books, 'users': users})
+    return render(request, 'admin.html', {'admin_user': admin_user, 'books': books, 'users': users, 'transactions':transactions})
 
 def add_book(request):
     if request.method == "POST":
@@ -201,14 +204,39 @@ def update_book(request, book_id):
         book_obj.author = author
         book_obj.available_copy = available_copy
         book_obj.save()
+
         messages.success(request, "Book has been sucessfully updated")
         return redirect('admin_dashboard')
     
     return render(request, "update_book.html", {"book": book_obj})
 
+def purchase_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    user = request.user
 
-def sign_out(request):  
-    pass
+    if not user.is_authenticated:
+        messages.error(request, "You must be logged in to purchase a book.")
+        return redirect("library")
+
+
+    if book.available_copy > 0:
+        book.available_copy -= 1
+        book.save()
+        transaction = Transaction.objects.create(user=user, book=book, copies_taken=1)
+        print(f"Transaction Created: {transaction}")
+        messages.success(request, "Book has been successfully purchased!")
+    else:
+        messages.error(request, "There are no more copies of this book available!")
+
+    return redirect("library")
+
+def user_logout(request):  
+    logout(request)
+    return redirect("login")
+
+def admin_logout(request):
+    logout(request)
+    return redirect("admin_login")
 
 def delete_account():
     pass

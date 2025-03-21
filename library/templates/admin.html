@@ -38,6 +38,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,45 +51,46 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    
+
         body {
             background-color: #f5f5f5;
             padding: 2rem;
             line-height: 1.6;
         }
-    
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-    
-        h1, h2 {
+
+        h1,
+        h2 {
             color: #2c3e50;
             margin-bottom: 1.5rem;
         }
-    
+
         h1 {
             font-size: 2.5rem;
             border-bottom: 3px solid #3498db;
             padding-bottom: 0.5rem;
         }
-    
+
         h2 {
             font-size: 1.8rem;
             margin-top: 2rem;
             color: #34495e;
         }
-    
+
         /* Forms */
         form {
             background: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
         }
-    
+
         input[type="text"],
         input[type="email"],
         input[type="password"],
@@ -100,7 +102,7 @@
             border-radius: 4px;
             font-size: 1rem;
         }
-    
+
         button[type="submit"] {
             background: #3498db;
             color: white;
@@ -111,38 +113,39 @@
             font-size: 1rem;
             transition: background 0.3s ease;
         }
-    
+
         button[type="submit"]:hover {
             background: #2980b9;
         }
-    
+
         /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
             background: white;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
         }
-    
-        th, td {
+
+        th,
+        td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #ecf0f1;
         }
-    
+
         th {
             background-color: #3498db;
             color: white;
             font-weight: 600;
         }
-    
+
         tr:hover {
             background-color: #f8f9fa;
         }
-    
+
         /* Action Links */
         a {
             text-decoration: none;
@@ -152,98 +155,125 @@
             border-radius: 4px;
             transition: all 0.3s ease;
         }
-    
+
         a.update {
             background-color: #27ae60;
             color: white;
         }
-    
+
         a.delete {
             background-color: #e74c3c;
             color: white;
         }
-    
+
         a:hover {
             opacity: 0.9;
         }
-    
+
         /* Status Indicators */
         span[style*="red"] {
             color: #e74c3c !important;
             font-weight: 600;
         }
-    
+
         span[style*="green"] {
             color: #27ae60 !important;
             font-weight: 600;
         }
-    
+
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
             }
-    
+
             table {
                 display: block;
                 overflow-x: auto;
                 white-space: nowrap;
             }
-    
+
             form {
                 padding: 1rem;
             }
         }
+
+        .purchase {
+            padding: 1rem 2rem;
+            color: #34495e;
+        }
+        .logout-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4b5c; /* Red background color */
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-family: Arial, sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-link:hover {
+    background-color: #e43a4b;
+}
+
+.logout-link:active {
+    background-color: #c9303c; 
+}
     </style>
 </head>
+
 <body>
-    <h1>Welcome Admin</h1>
+    <div class="container">
+        <h1>Welcome Admin</h1>
 
-    <!-- ✅ Book Addition Form -->
-    <form action="{% url 'add_book' %}" method="POST"> 
-        {% csrf_token %}
-        <h2>Add Book</h2>
-        <input type="text" name="title" id="title" placeholder="Book Name" required>
-        <input type="text" name="author" id="author" placeholder="Author Name" required>
-        <input type="number" name="available_copy" id="available_copy" placeholder="Available Copies" required>
-        <button type="submit">Add Book</button>
-    </form>
+        <form action="{% url 'add_book' %}" method="POST">
+            {% csrf_token %}
+            <h2>Add Book</h2>
+            <input type="text" name="title" id="title" placeholder="Book Name" required>
+            <input type="text" name="author" id="author" placeholder="Author Name" required>
+            <input type="number" name="available_copy" id="available_copy" placeholder="Available Copies" required>
+            <button type="submit">Add Book</button>
+        </form>
 
-    <h1>Add User</h1>
+        <h1>Add User</h1>
 
-    <form action="{% url 'add_user' %}" method="POST">
-        {% csrf_token %}
+        <form action="{% url 'add_user' %}" method="POST">
+            {% csrf_token %}
             <input type="text" name="username" id="name" placeholder="Name" required>
             <input type="email" name="email" id="email" placeholder="Email" required>
             <input type="password" name="password" id="password" placeholder="Password" required>
             <button type="submit">Add User</button>
-       </form>
+        </form>
 
-    <!-- ✅ Book List Table -->
-    <h2>Book List</h2>
-    <table border="1">
-        <tr>
-            <th>Book Name</th>
-            <th>Author Name</th>
-            <th>Available Copies</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
+        <h2>Book List</h2>
+        <table border="1">
+            <tr>
+                <th>Book Name</th>
+                <th>Author Name</th>
+                <th>Available Copies</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
 
-        {% for book in books %}
-        <tr>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.available_copy }}</td>
-            {% if book.id %}
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.available_copy }}</td>
+                {% if book.id %}
                 <td><a href="{% url 'update_book' book.id %}">Update</a></td>
                 <td><a href="{% url 'delete_book' book.id %}">Delete</a></td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
 
-    <h1>User List</h1>
+        <!-- <h1>User List</h1>
     <table border="1">
         <tr>
             <th>Name</th>
@@ -251,6 +281,8 @@
             <th>Privilage</th>
             <th>Update</th>
             <th>Delete</th>
+            <th>Book</th>
+            <th>Borrowed Date</th>
         </tr>
 
         {% for user in users %}
@@ -264,13 +296,82 @@
                     <span style="color: green;">User</span>
                 {% endif %}
             </td>
+
+       
+        {% for transaction in transactions %}
+        <td>
+            {{ transaction.book.title }}
+            
+        </td>
+        {% endfor %}
+       
+            
             {% if user.id %}
                 <td><a href="{% url 'update_user' user.id %}">Update</a></td>
                 <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
             {% endif %}
-            <!-- <td>{{ user.password }}</td>  -->
+            
         </tr>
-        {% endfor %}
-    </table>
+    </tr>
+    {% endfor %}
+    {% for t in transactions %}
+        <td>{{t.book.title}}</td>
+        <td></td>
+    {% endfor %}
+    <tr>
+    </table> -->
+
+
+
+
+        <h1>User List</h1>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Privilege</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th>Book</th>
+                <th>Borrowed Date</th>
+            </tr>
+
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.is_superuser %}
+                    <span style="color: red;">Admin</span>
+                    {% else %}
+                    <span style="color: green;">User</span>
+                    {% endif %}
+                </td>
+
+                {% if user.id %}
+                <td><a href="{% url 'update_user' user.id %}">Update</a></td>
+                <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
+                {% endif %}
+                <td>
+                    {% for transaction in transactions %}
+                        {% if transaction.user.id == user.id %}
+                            {{ transaction.book.title }}<br>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+
+                <td>
+                    {% for transaction in transactions %}
+                        {{ transaction.date_borrowed }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a href="{% url 'admin_login' %}" class="logout-link">Log out</a>
+    </div>
+
 </body>
+
 </html>
