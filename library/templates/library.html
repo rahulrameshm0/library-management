@@ -7,13 +7,13 @@
    <style>
 /* Modern Minimalist CSS */
 :root {
-  --primary: #2563eb;      /* Modern blue */
-  --secondary: #3b82f6;    /* Lighter blue */
-  --text: #1e293b;         /* Dark slate */
-  --background: #f8fafc;    /* Lightest slate */
-  --surface: #ffffff;       /* Pure white */
-  --success: #22c55e;       /* Fresh green */
-  --border: #e2e8f0;        /* Subtle border */
+  --primary: #2563eb;   
+  --secondary: #3b82f6;  
+  --text: #1e293b;     
+  --background: #f8fafc;    
+  --surface: #ffffff;   
+  --success: #2266c5;    
+  --border: #e2e8f0;       
 }
 
 * {
@@ -103,7 +103,26 @@ button.purchase {
 }
 
 button.purchase:hover {
-  background: #16a34a;
+  background: #1668a3;
+  transform: translateY(-1px);
+}
+
+button.return {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button.return:hover {
+  background: #1668a3;
   transform: translateY(-1px);
 }
 
@@ -187,6 +206,7 @@ table {
                  <th>Author Name</th>
                  <th>Copies</th>
                  <th>Borrow Book</th>
+                 <th>Return Book</th>
              </tr>
              {% for book in books %} 
              <tr>
@@ -194,9 +214,15 @@ table {
                  <td>{{ book.author }}</td>
                  <td>{{ book.available_copy }}</td>
                  <td>
-                     <form action="{% url 'purchase_book' book.id %}" method="POST">
+                    <form action="{% url 'purchase_book' book.id%}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="purchase">Borrow</button>
+                    </form>
+                </td>
+                 <td>
+                     <form action="{% url 'return_book' book.id %}" method="POST">
                          {% csrf_token %}
-                         <button type="submit" class="purchase" href="{% url 'purchase_book' book.id %}">Purchase</button>
+                         <button type="submit" class="return">Return</button>
                      </form>
                  </td>
              </tr>

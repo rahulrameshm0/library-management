@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User  
 
 # Create your models here.
 class User(models.Model):
@@ -59,11 +61,11 @@ class Admin(models.Model):
         user.delete()
 
 
-class Transaction(models.Model):
+class UserBook(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    copies_taken = models.IntegerField(default=1)
-    date_borrowed = models.DateTimeField(auto_now_add=True)
+    date_borrowed = models.DateTimeField(default=timezone.now)
+    copies_taken = models.IntegerField(default=1) 
 
     def __str__(self):
         return f"{self.user.username} borrwed {self.book.title}"

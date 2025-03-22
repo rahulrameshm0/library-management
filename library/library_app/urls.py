@@ -13,5 +13,6 @@ urlpatterns = [
     path('admin-dashboard/update-user/<int:user_id>', views.update_user, name='update_user'),
     path('admin-dashboard/delete-book/<int:book_id>', views.delete_book, name='delete_book'),
     path('admin-dashboard/update-book/<int:book_id>', views.update_book, name='update_book'),
-    path("purchase-book/<int:book_id>/", views.purchase_book, name="purchase_book"),
+    path('purchase-book/<int:book_id>/', views.purchase_book, name='purchase_book'),
+    path('return-book/<int:book_id>/', views.return_book, name='return_book'),
 ]

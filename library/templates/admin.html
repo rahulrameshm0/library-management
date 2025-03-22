@@ -321,10 +321,7 @@
     <tr>
     </table> -->
 
-
-
-
-        <h1>User List</h1>
+        <h1>User List</h1>   
         <table border="1">
             <tr>
                 <th>Name</th>
@@ -332,8 +329,6 @@
                 <th>Privilege</th>
                 <th>Update</th>
                 <th>Delete</th>
-                <th>Book</th>
-                <th>Borrowed Date</th>
             </tr>
 
             {% for user in users %}
@@ -352,19 +347,7 @@
                 <td><a href="{% url 'update_user' user.id %}">Update</a></td>
                 <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
                 {% endif %}
-                <td>
-                    {% for transaction in transactions %}
-                        {% if transaction.user.id == user.id %}
-                            {{ transaction.book.title }}<br>
-                        {% endif %}
-                    {% endfor %}
-                </td>
 
-                <td>
-                    {% for transaction in transactions %}
-                        {{ transaction.date_borrowed }}<br>
-                    {% endfor %}
-                </td>
             </tr>
             {% endfor %}
         </table>
