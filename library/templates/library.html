@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Library</title>
    <style>
 /* Modern Minimalist CSS */
@@ -193,12 +196,88 @@ table {
 .logout-link:active {
     background-color: #c9303c; 
 }
+  /* Basic reset */
+  * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Form container */
+    .search-form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form group */
+    .form-group {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Search input */
+    .search-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: #007bff;
+    }
+
+    /* Search button */
+    .search-button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsive design */
+    @media (max-width: 480px) {
+        .search-form {
+            padding: 15px;
+        }
+
+        .search-input {
+            font-size: 14px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+    }
    </style>
 </head>
 <body>
     <div class="container">
         <h1>Available Books</h1>
-        
+        <form action="{% url 'library' %}" method="POST" class="search-form">
+          {% csrf_token %}  
+          <div class="form-group">
+              <input type="text" name="search_query" placeholder="Search by title..." class="search-input">
+              <button type="submit" class="search-button">Search</button>
+          </div>
+      </form>
         {% if user.is_authenticated %}
          <table border="1">
              <tr>

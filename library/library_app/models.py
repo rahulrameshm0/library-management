@@ -60,12 +60,3 @@ class Admin(models.Model):
         user = User.objects.get(id=user_id)
         user.delete()
 
-
-class UserBook(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    date_borrowed = models.DateTimeField(default=timezone.now)
-    copies_taken = models.IntegerField(default=1) 
-
-    def __str__(self):
-        return f"{self.user.username} borrwed {self.book.title}"

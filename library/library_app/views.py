@@ -4,12 +4,11 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
 # from django.contrib.auth.models import User
-from . models import Book,Admin, UserBook
+from . models import Book,Admin
 from django.contrib.auth import login,logout, authenticate
 
-User  = get_user_model()
 
-# Create your views here.
+User  = get_user_model()
 @login_required
 def user_login(request):
     if request.method == "POST":
@@ -26,6 +25,26 @@ def user_login(request):
             messages.error(request, "user or password is incorrect!")
 
     return render(request, "user-login.html")
+
+def library(request):
+    if request.method == "POST":
+        search_query = request.POST.get("search_query").strip()
+
+        if not search_query:
+            messages.error(request, "Please enter a search term.")
+            return redirect("library")
+
+        books = Book.objects.filter(title__istartswith=search_query)
+
+        if not books:
+            messages.info(request, f"No books found starting with '{search_query}'.")
+            return redirect("library")
+
+        return render(request, "library.html", {"books": books})
+    
+    books = Book.objects.all()
+    return render(request, "library.html", {"books": books})
+
 
 def signup(request):
     if request.method == "POST":
@@ -212,7 +231,7 @@ User = get_user_model()
 @login_required
 def purchase_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    user = request.user 
+    # user = request.user 
 
     if book.available_copy > 0:
         book.available_copy -= 1
@@ -227,7 +246,7 @@ def purchase_book(request, book_id):
 @login_required
 def return_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    user = request.user 
+    # user = request.user 
 
     if book.available_copy > 0:
         book.available_copy += 1
