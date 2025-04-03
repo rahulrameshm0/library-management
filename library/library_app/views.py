@@ -8,7 +8,6 @@ from . models import Book,Admin
 from django.contrib.auth import login,logout, authenticate
 
 
-User  = get_user_model()
 @login_required
 def user_login(request):
     if request.method == "POST":
@@ -44,7 +43,6 @@ def library(request):
     
     books = Book.objects.all()
     return render(request, "library.html", {"books": books})
-
 
 def signup(request):
     if request.method == "POST":
